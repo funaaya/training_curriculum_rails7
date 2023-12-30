@@ -1,8 +1,6 @@
 class CalendarsController < ApplicationController
-
   
-
-  # １週間のカレンダーと予定が表示されるページ
+# １週間のカレンダーと予定が表示されるページ　
   def index
     get_week
     @plan = Plan.new
@@ -10,15 +8,17 @@ class CalendarsController < ApplicationController
 
   # 予定の保存
   def create
-    Plan.create!(post_params)
+    binding.pry
+    Plan.create(plan_params)
+    redirect_to action: :index
+    end
     
-  end
 
-  private
+   private
 
-  def post_params
-    params.require(:post).permit(:content, :image)
-  end
+  def plan_params
+    params.require(:plan).permit(:date, :plan)
+    end
 
   def get_week
     wdays = ['(日)','(月)','(火)','(水)','(木)','(金)','(土)']
