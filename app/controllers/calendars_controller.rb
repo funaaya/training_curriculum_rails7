@@ -8,17 +8,16 @@ class CalendarsController < ApplicationController
 
   # 予定の保存
   def create
-    binding.pry
+    
     Plan.create(plan_params)
     redirect_to action: :index
     end
-    
 
-   private
+  private
 
   def plan_params
     params.require(:plan).permit(:date, :plan)
-    end
+  end
 
   def get_week
     wdays = ['(日)','(月)','(火)','(水)','(木)','(金)','(土)']
@@ -37,7 +36,7 @@ class CalendarsController < ApplicationController
         today_plans.push(plan.plan) if plan.date == @todays_date + x
       end
 
-      wday_num = Date.today.wday
+      wday_num = Date.today.wday + x
       if wday_num >= 7
       wday_num = wday_num -7
       end
@@ -47,4 +46,5 @@ class CalendarsController < ApplicationController
     end
  
   end
+
 end
